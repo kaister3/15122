@@ -1,0 +1,49 @@
+//习题一：
+//数组的拷贝范围是[0, \length(A)]，即j >= i && j - i <= \length(A)。
+//此时确保拷贝的时候不会越界。然后依次拷贝数组的元素即可，拷贝的时候确保用于循环拷贝的变量在[0,j-i]之间。
+int[] array_part(int[] A, int i, int j)
+//@requires j >= i && j - i <= \length(A);
+//@ensures \length(\result) == j - i;
+{
+    int[] res = fib(j - i);
+    for (int k = 0; k < j - i; k++)
+    //@loop_invariant k >= 0 && k < j - i;
+    {
+        res[k] = A[i + k];
+    }
+    return res;
+}
+
+//习题二：
+//除了要满足习题一的条件，还要确保源数组source第i个元素之后有n个元素的位置。
+int copy_into(int[] source, int i, int n, int[] target, int j)
+//@requires n >= 0;
+//@requires \length(source) - 1 - i >= n && \length(target) - 1 - j >= n;
+//@ensures \result == j + n;
+{
+    for (int k = 0; k < n; k++)
+    //@loop_invariant k >= 0 && k < n;
+    {
+        target[j] = source[i + k];
+    }
+
+    return j + n;
+}
+
+//习题四：
+//可以写一个函数，获取数组A中小于零的元素的个数
+//函数的前置条件是\result >= 0 && \result <= \length A
+int f(int[] A)
+{
+    int length = sizeof(A) / sizeof(int);
+    int count = 0;
+    for (int i = 0; i < length; i++)
+    {
+        if (A[i] < 0)
+        {
+            count++;
+        }
+        
+    }
+    return count;
+}

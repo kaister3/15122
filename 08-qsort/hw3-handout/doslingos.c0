@@ -1,0 +1,48 @@
+#use "./lib/arrayutil.c0"
+#use "./lib/readfile.c0"
+#use "./lib/stringsearch.c0"
+#use <conio>
+
+#include "./lib/arrayutil.c0"
+#include "./lib/readfile.c0"
+#include "./lib/stringsearch.c0"
+
+//task 4
+int count_vocab(string[] vocab, int[] freq, int v,
+                string tweetfile,
+                bool fast)
+    //@requires v == \length(vocab) && v == \length(freq);
+    //@requires is_sorted(vocab, 0, v) && all_distinct(vocab, v);
+    {
+        //read file into a string[]
+        string_bundle bund = read_words(tweetfile);
+        string tweet[] = string_bundle_array(bund);
+        int length = string_bundle_length(bund);
+
+        int result;
+
+        if (fast)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                if (is_in(tweet[i], vocab))
+                {
+                    freq[binsearch(tweet[i], vocab)]++;
+                    result++;
+                }
+            }
+            return result;
+        }
+        else
+        {
+            for (int i = 0; i < length; i++)
+            {
+                if (is_in(tweet[i], vocab))
+                {
+                    freq[linsearch(tweet[i], vocab)]++;
+                    result++;
+                }
+            }
+            return result;
+        }
+    }

@@ -1,0 +1,13 @@
+//第八周作业
+
+//prog3
+
+//1 Removing Duplicates
+//task 1
+#use <string>
+bool all_distinct(String[] A, int n)
+//@requires 0 <= n && n <= \length(A);
+//@requires is_sorted(A, 0, n);
+{
+    
+}
